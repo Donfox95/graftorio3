@@ -119,7 +119,7 @@ whenever you want to run the game on a different server you would have to change
 1. the exporter needs to run on the same server/computer as your Factorio server/instance.
 2. the Factorio server/instance doesn't need the Prometheus and Grafana dockers. so remove those 2 entries from the `docker-compose.yml`
 3. the exporter needs to be accesible from the web, so that the Prometheus db can access it to load in the required data. more information for the exporter is found here https://github.com/Prometheus/node_exporter
-4. change over the `data/Prometheus.yml` to let the targets point to your exporters ip:port
+4. change over the `config/prometheus/prometheus.yml` to let the targets point to your exporters ip:port
 
 however when you want to separate this all, keep in mind that most of the default settings in this readme/repo are not correct.  
 so these have to be changed to your needs.
@@ -128,6 +128,10 @@ so these have to be changed to your needs.
 
 open your http://domain.name and see the login for Grafana.
 keep in mind that this short guide doesn't explain on how to properly secure everything. this is up to you to fix yourself.
+
+## Metrics
+
+The list of currently included metrics can be found in [Metrics.md](Metrics.md).
 
 ## Dashboards
 
