@@ -1,3 +1,44 @@
+function count_ore_planned_to_mine()
+	-- Clear the gauge to reset values
+	gauge_ore_planned_to_mine:reset()
+
+	-- Define mining drill types
+	local miner_types = {
+		"electric-mining-drill",
+		"burner-mining-drill",
+		"manual-mining-drill",
+	}
+
+	-- Track ore locations with active miners
+	for _, surface in pairs(game.surfaces) do
+		local ore_amounts_by_location = {}
+
+		for _, miner_type in ipairs(miner_types) do
+			local miners = surface.find_entities_filtered({ name = miner_type })
+			for _, miner in ipairs(miners) do
+				if miner.mining_target then
+					local ore_target = miner.mining_target
+					local ore_type = ore_target.name
+					local force_name = miner.force.name
+					local ore_amount = ore_target.amount or 0
+					local key = force_name .. "|" .. ore_type .. "|" .. ore_target.position.x .. "|" .. ore_target.position.y
+
+					if not ore_amounts_by_location[key] then
+						ore_amounts_by_location[key] = { force = force_name, ore = ore_type, amount = 0 }
+					end
+					-- Sum ore amounts (in case multiple miners on same ore patch)
+					ore_amounts_by_location[key].amount = ore_amounts_by_location[key].amount + ore_amount
+				end
+			end
+		end
+
+		-- Set metrics for each force/ore combination
+		for _, data in pairs(ore_amounts_by_location) do
+			gauge_ore_planned_to_mine:set(data.amount, { data.force, surface.name, data.ore })
+		end
+	end
+end
+
 function register_events(event)
 	gauge_tick:set(game.tick)
 
@@ -101,6 +142,9 @@ function register_events(event)
 
 	-- circuit network tick handler
 	on_circuit_network_tick(event)
+
+	-- count ore planned to mine
+	count_ore_planned_to_mine()
 
 	if server_save then
 		helpers.write_file("graftorio2/game.prom", prometheus.collect(), false, 0)

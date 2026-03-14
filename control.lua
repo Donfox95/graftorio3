@@ -18,27 +18,27 @@ gauge_total_player_count = prometheus.gauge("factorio_total_player_count", "tota
 gauge_seed = prometheus.gauge("factorio_seed", "seed", { "surface" })
 gauge_mods = prometheus.gauge("factorio_mods", "mods", { "name", "version" })
 
-gauge_item_production_input = prometheus.gauge("factorio_item_production_input", "items produced", { "force", "name", "surface" })
+gauge_item_production_input = prometheus.gauge("factorio_item_production_input_total", "items produced", { "force", "name", "surface" })
 gauge_item_production_output =
-	prometheus.gauge("factorio_item_production_output", "items consumed", { "force", "name", "surface" })
+	prometheus.gauge("factorio_item_production_output_total", "items consumed", { "force", "name", "surface" })
 
 gauge_fluid_production_input =
-	prometheus.gauge("factorio_fluid_production_input", "fluids produced", { "force", "name", "surface" })
+	prometheus.gauge("factorio_fluid_production_input_total", "fluids produced", { "force", "name", "surface" })
 gauge_fluid_production_output =
-	prometheus.gauge("factorio_fluid_production_output", "fluids consumed", { "force", "name", "surface" })
+	prometheus.gauge("factorio_fluid_production_output_total", "fluids consumed", { "force", "name", "surface" })
 
-gauge_kill_count_input = prometheus.gauge("factorio_kill_count_input", "kills", { "force", "name", "surface" })
-gauge_kill_count_output = prometheus.gauge("factorio_kill_count_output", "losses", { "force", "name", "surface" })
+gauge_kill_count_input = prometheus.gauge("factorio_kill_count_input_total", "kills", { "force", "name", "surface" })
+gauge_kill_count_output = prometheus.gauge("factorio_kill_count_output_total", "losses", { "force", "name", "surface" })
 
 gauge_entity_build_count_input =
-	prometheus.gauge("factorio_entity_build_count_input", "entities placed", { "force", "name", "surface" })
+	prometheus.gauge("factorio_entity_build_count_input_total", "entities placed", { "force", "name", "surface" })
 gauge_entity_build_count_output =
-	prometheus.gauge("factorio_entity_build_count_output", "entities removed", { "force", "name", "surface" })
+	prometheus.gauge("factorio_entity_build_count_output_total", "entities removed", { "force", "name", "surface" })
 
 gauge_pollution_production_input =
-	prometheus.gauge("factorio_pollution_production_input", "pollutions produced", { "name", "surface" })
+	prometheus.gauge("factorio_pollution_production_input_total", "pollutions produced", { "name", "surface" })
 gauge_pollution_production_output =
-	prometheus.gauge("factorio_pollution_production_output", "pollutions consumed", { "name", "surface" })
+	prometheus.gauge("factorio_pollution_production_output_total", "pollutions consumed", { "name", "surface" })
 
 gauge_evolution = prometheus.gauge("factorio_evolution", "evolution", { "force", "type", "surface" })
 
@@ -55,6 +55,12 @@ gauge_yarm_site_remaining_permille = prometheus.gauge(
 	"factorio_yarm_site_remaining_permille",
 	"YARM - site permille remaining",
 	{ "force", "name", "type" }
+)
+
+gauge_ore_planned_to_mine = prometheus.gauge(
+	"factorio_ore_planned_to_mine",
+	"amount of ore remaining at locations with active miners",
+	{ "force", "surface", "ore_type" }
 )
 
 gauge_train_trip_time = prometheus.gauge("factorio_train_trip_time", "train trip time", { "from", "to", "train_id" })
