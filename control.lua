@@ -10,6 +10,10 @@ bucket_settings = train_buckets(settings.startup["graftorio2-train-histogram-buc
 nth_tick = settings.startup["graftorio2-nth-tick"].value
 server_save = settings.startup["graftorio2-server-save"].value
 disable_train_stats = settings.startup["graftorio2-disable-train-stats"].value
+experimental_mode = settings.startup["graftorio2-experimental-mode"].value
+if experimental_mode then
+	nth_tick = 60
+end
 
 gauge_tick = prometheus.gauge("factorio_tick", "game tick")
 gauge_connected_player_count = prometheus.gauge("factorio_connected_player_count", "connected players")
