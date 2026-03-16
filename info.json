@@ -1,10 +1,10 @@
 {
-  "name": "graftorio2-mvolfik",
+  "name": "graftorio3",
   "version": "0.0.1",
-  "title": "graftorio2 - mvolfik patch",
-  "author": "remijouannet",
+  "title": "graftorio3",
+  "author": "remijouannet/donfox",
   "description": "visualize metrics from your factorio game in grafana",
-  "homepage": "https://github.com/remijouannet/graftorio2",
+  "homepage": "https://github.com/Donfox95/graftorio",
   "dependencies": ["? YARM >= 0.8.207"],
   "factorio_version": "2.0"
 }

@@ -120,6 +120,12 @@ gauge_logistic_network_items = prometheus.gauge(
 	{ "force", "surface", "network", "name", "quality" }
 )
 
+gauge_fluid_storage = prometheus.gauge(
+	"factorio_fluid_storage",
+	"the amount of fluid stored in tanks and wagons",
+	{ "force", "surface", "name" }
+)
+
 gauge_circuit_network_signal = prometheus.gauge(
 	"factorio_circuit_network_signal",
 	"the value of a signal in a circuit network",

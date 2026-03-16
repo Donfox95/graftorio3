@@ -92,6 +92,42 @@ function register_events(event)
 			end
 		end
 
+		-- fluid storage tracking
+		gauge_fluid_storage:reset()
+		for _, surface in pairs(game.surfaces) do
+			local fluid_storage = {}
+			-- Find all storage tanks
+			local tanks = surface.find_entities_filtered({ type = "storage-tank", force = player.force })
+			for _, tank in ipairs(tanks) do
+				for i = 1, #tank.fluidbox do
+					local fluid = tank.fluidbox[i]
+					if fluid and fluid.name then
+						if not fluid_storage[fluid.name] then
+							fluid_storage[fluid.name] = 0
+						end
+						fluid_storage[fluid.name] = fluid_storage[fluid.name] + fluid.amount
+					end
+				end
+			end
+			-- Find all fluid wagons
+			local wagons = surface.find_entities_filtered({ type = "fluid-wagon", force = player.force })
+			for _, wagon in ipairs(wagons) do
+				for i = 1, #wagon.fluidbox do
+					local fluid = wagon.fluidbox[i]
+					if fluid and fluid.name then
+						if not fluid_storage[fluid.name] then
+							fluid_storage[fluid.name] = 0
+						end
+						fluid_storage[fluid.name] = fluid_storage[fluid.name] + fluid.amount
+					end
+				end
+			end
+			-- Set the metrics
+			for fluid_name, amount in pairs(fluid_storage) do
+				gauge_fluid_storage:set(amount, { player.force.name, surface.name, fluid_name })
+			end
+		end
+
 		-- research tick handler
 		on_research_tick(player, event)
 	end

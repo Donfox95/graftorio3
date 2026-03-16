@@ -32,10 +32,11 @@ Please read the warning regarding the cardinality of train metrics!
 
 #### Fluids
 
-| Name                               | Labels         | Description                                                          |
-|------------------------------------|----------------|----------------------------------------------------------------------|
-| `factorio_fluid_production_input`  | force<br/>name | How much of each fluid has been produced in total by each force      |
-| `factorio_fluid_production_output` | force<br/>name | How much of each fluid has been used/consumed in total by each force |
+| Name                               | Labels                  | Description                                                          |
+|------------------------------------|-------------------------|----------------------------------------------------------------------|
+| `factorio_fluid_production_input`  | force<br/>name<br/>surface | How much of each fluid has been produced in total by each force      |
+| `factorio_fluid_production_output` | force<br/>name<br/>surface | How much of each fluid has been used/consumed in total by each force |
+| `factorio_fluid_storage`           | force<br/>name<br/>surface | How much of each fluid is currently stored in tanks and fluid wagons |
 
 #### Energy
 
